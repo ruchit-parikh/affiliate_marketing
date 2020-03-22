@@ -22,17 +22,13 @@ class AuthController extends Controller
             'password' => 'required|min:8|max:32|confirmed',
             'profile_img' => 'nullable|url',
             'pay_id' => 'required|string', 
-            'pay_type' => ['required', Rule::in(array_keys(config('payouts.allowed')))], 
-            'parent_username' => ['required', Rule::in(User::pluck('username'))], 
+            'pay_type' => ['required', Rule::in(array_column(User::$payouts, 'key'))], 
         ]);
 
         try {
-            $request->merge([
-                'parent_id' => User::where('username', $request->parent_username)->firstOrFail()->id
-            ]);
             $user = User::create($request->only([
                 'username', 'name', 'email', 'password', 
-                'profile_img', 'pay_id', 'pay_type', 'parent_id'
+                'profile_img', 'pay_id', 'pay_type'
             ]));
             return $this->respondWithToken(auth()->login($user));
         } catch (\Exception $e) {

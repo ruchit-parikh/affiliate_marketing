@@ -38,6 +38,38 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Staus that are allowed for users 
+     */
+    public static $status = [
+        'active' => [
+            'code' => 1,
+            'display' => 'Active'
+        ], 
+        'inactive' => [
+            'code' => 0,
+            'display' => 'Inactive'
+        ], 
+        'pending' => [
+            'code' => 2, 
+            'display' => 'Pending'
+        ]
+    ];
+
+    /**
+     * Payout types that are allowed for users 
+     */
+    public static $payouts = [
+        [
+            'key' => 'paypal',
+            'display' => 'Paypal'
+        ], 
+        [
+            'key' => 'bank_wire', 
+            'display' => 'Bank Wire'
+        ]
+    ];
+
     public function setPasswordAttribute($password)
     {
         if ( !empty($password) ) {
@@ -53,5 +85,10 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function role()
+    {
+        $this->belongsTo(Role::class);
     }
 }

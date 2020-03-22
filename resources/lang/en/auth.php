@@ -18,5 +18,5 @@ return [
     'unauthorized' => 'You are not authorized.',
     'logout' => 'You are successfully logged out.',
     'loggedin' => 'You are successfully logged in.',
-    'register_failed' => 'Failed to register new user.',
+    'register_failed' => 'Failed to register a new user.',
 ];
