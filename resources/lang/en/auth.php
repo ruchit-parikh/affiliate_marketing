@@ -19,4 +19,6 @@ return [
     'logout' => 'You are successfully logged out.',
     'loggedin' => 'You are successfully logged in.',
     'register_failed' => 'Failed to register a new user.',
+    'something_went_wrong' => 'Oops! Something went wrong.',
+    'reset_password_button' => 'Reset Password'
 ];

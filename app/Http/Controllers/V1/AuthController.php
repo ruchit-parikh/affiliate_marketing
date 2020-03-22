@@ -1,10 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\V1;
 
-use App\User;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use App\Mail\SendPasswordResetLink;
+use App\User;
 
 class AuthController extends Controller
 {
@@ -26,9 +31,12 @@ class AuthController extends Controller
         ]);
 
         try {
+            $request->merge([
+                'status' => User::$status['active']['code']
+            ]);
             $user = User::create($request->only([
                 'username', 'name', 'email', 'password', 
-                'profile_img', 'pay_id', 'pay_type'
+                'profile_img', 'pay_id', 'pay_type', 'status'
             ]));
             return $this->respondWithToken(auth()->login($user));
         } catch (\Exception $e) {
@@ -53,6 +61,51 @@ class AuthController extends Controller
     {
         auth()->logout();
         return jsonResponse('success', __('auth.logout'));
+    }
+
+    public function sendResetPasswordLink(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email|max:255|exists:users,email',
+        ]);
+        
+        try {
+            $old_reset = DB::table('password_resets')->where('email', $request->email)->first();
+            if ($old_reset) {
+                $token = $old_reset->token;
+            } else {
+                $token = Str::random(60);
+                DB::insert([
+                    'email' => $request->email,
+                    'token' => $token
+                ]);
+            }
+
+            Mail::to($request->email)->send(new SendPasswordResetLink($token));
+            return jsonResponse('success', __('password.sent', [
+                'token' => $token
+            ]));
+        } catch (\Exception $e) {
+            return jsonResponse('error', __('auth.something_went_wrong'));
+        }
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email|max:255|exists:users,email',
+            'password' => 'required|min:8|max:32|confirmed', 
+        ]);
+        $tokenRow = DB::table('password_resets')->where('email', $request->email)->first();
+
+        if (!empty($tokenRow) && $tokenRow->token == $request->token) {
+            User::where('email', $request->email)->firstOrFail()->update([
+                'password' => $request->password
+            ]);
+            return jsonResponse('success', __('passwords.reset'));
+        } else {
+            return jsonResponse('error', __('passwords.token'));
+        }
     }
 
     /**

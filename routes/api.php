@@ -14,11 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/login', 'AuthController@login');
-Route::post('/register', 'AuthController@register');
-
 Route::group([
-    'middleware' => 'auth'
+    'namespace' => 'V1', 
+    'prefix' => 'v1', 
+    'as' => 'v1.'
 ], function() {
-    Route::post('/logout', 'AuthController@logout');
+    Route::post('/login', 'AuthController@login');
+    Route::post('/register', 'AuthController@register');
+    Route::post('/send-reset-link', 'AuthController@sendResetPasswordLink');
+    Route::post('/reset-password', 'AuthController@resetPassword')->name('reset_password');
+
+    Route::group([
+        'middleware' => 'auth'
+    ], function() {
+        Route::post('/logout', 'AuthController@logout');
+    });
 });
