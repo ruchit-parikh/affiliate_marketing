@@ -26,6 +26,14 @@ Route::group([
     Route::group([
         'middleware' => 'auth'
     ], function() {
+        Route::group([
+            'namespace' => 'Admin',
+            'middleware' => ['role:admin'], 
+            'prefix' => 'admin', 
+            'as' => 'admin.'
+        ], function() {
+            Route::post('/dashboard', 'DashboardController@index')->name('dashboard.index');
+        });
         Route::post('/logout', 'AuthController@logout')->name('logout');
     });
 });

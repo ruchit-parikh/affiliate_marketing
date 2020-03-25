@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use App\Mail\SendPasswordResetLink;
+use App\Role;
 use App\User;
 
 class AuthController extends Controller
@@ -32,7 +33,8 @@ class AuthController extends Controller
 
         try {
             $request->merge([
-                'status' => User::$status['active']['code']
+                'status' => User::$status['active']['code'], 
+                'role_id' => Role::where('slug', User::$default_role)->firstOrFail()->id
             ]);
             $user = User::create($request->only([
                 'username', 'name', 'email', 'password', 

@@ -11,36 +11,18 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
-    /**
-     * The attributes that are not mass assignable.
-     *
-     * @var array
-     */
     protected $guarded = [
         'id',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * Staus that are allowed for users 
-     */
     public static $status = [
         'active' => [
             'code' => 1,
@@ -62,8 +44,10 @@ class User extends Authenticatable implements JWTSubject
         ],
     ];
 
+    public static $default_role = 'customer';
+
     /**
-     * Payout types that are allowed for users 
+     * Payout types are which through user will get their payments
      */
     public static $payouts = [
         [

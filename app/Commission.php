@@ -6,18 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Commission extends Model
 {
-    /**
-     * The attributes that are not mass assignable.
-     *
-     * @var array
-     */
     protected $guarded = [
         'id',
     ];
 
-    /**
-     * Staus that are allowed for users 
-     */
     public static $status = [
         'active' => [
             'code' => 1,

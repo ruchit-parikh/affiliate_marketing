@@ -6,18 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    /**
-     * The attributes that are not mass assignable.
-     *
-     * @var array
-     */
     protected $guarded = [
         'id',
     ];
 
-    /**
-     * Staus that are allowed for package 
-     */
     public static $status = [
         'completed' => [
             'code' => 1,
@@ -39,9 +31,6 @@ class Order extends Model
         ],
     ];
 
-    /**
-     * Payment Methods 
-     */
     public static $payment_type = [
         'paypal' => [
             'slug' => 'paypal',
@@ -57,9 +46,6 @@ class Order extends Model
         ],
     ];
 
-    /**
-     * Order types
-     */
     public static $order_type = [
         'register' => [
             'slug' => 'register', 
