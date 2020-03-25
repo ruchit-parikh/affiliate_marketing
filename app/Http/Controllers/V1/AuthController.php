@@ -37,7 +37,7 @@ class AuthController extends Controller
                 'role_id' => Role::where('slug', User::$default_role)->firstOrFail()->id
             ]);
             $user = User::create($request->only([
-                'username', 'name', 'email', 'password', 
+                'username', 'name', 'email', 'password', 'role_id',
                 'profile_img', 'pay_id', 'pay_type', 'status'
             ]));
             return $this->respondWithToken(auth()->login($user));
