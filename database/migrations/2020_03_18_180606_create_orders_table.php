@@ -1,5 +1,7 @@
 <?php
 
+use App\Order;
+use App\Package;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -21,10 +23,10 @@ class CreateOrdersTable extends Migration
             $table->foreign('package_id')->references('id')->on('packages')->onDelete('set null');
             $table->string('package_name');
             $table->float('amount');
-            $table->integer('allowed_children')->default(1);
+            $table->integer('allowed_children')->default(Package::$allowed_default_children);
             $table->string('order_type');
-            $table->string('payment_type')->default('paypal');
-            $table->tinyInteger('status')->default(2)->comment('Discarded: 0, Completed: 1, Pending: 2');
+            $table->string('payment_type')->default(Order::$payment_type['paypal']['slug']);
+            $table->tinyInteger('status')->default(Order::$status['pending']['code'])->comment('Discarded: 0, Completed: 1, Pending: 2');
             $table->timestamps();
             $table->softDeletes();
         });

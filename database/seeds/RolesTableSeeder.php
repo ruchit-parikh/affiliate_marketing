@@ -16,7 +16,7 @@ class RolesTableSeeder extends Seeder
             Role::updateOrCreate([
                 'slug' => $role_slug,
             ], [
-                'name' => $role['name']
+                'name' => $role['name']['en']
             ]);
         }
     }

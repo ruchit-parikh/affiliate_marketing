@@ -44,16 +44,22 @@ class User extends Authenticatable implements JWTSubject
     public static $status = [
         'active' => [
             'code' => 1,
-            'display' => 'Active'
+            'display' => [
+                'en' => 'Active',
+            ],
         ], 
         'inactive' => [
             'code' => 0,
-            'display' => 'Inactive'
+            'display' => [
+                'en' => 'Inactive',
+            ],
         ], 
         'pending' => [
             'code' => 2, 
-            'display' => 'Pending'
-        ]
+            'display' => [
+                'en' => 'Pending',
+            ],
+        ],
     ];
 
     /**
@@ -62,11 +68,15 @@ class User extends Authenticatable implements JWTSubject
     public static $payouts = [
         [
             'key' => 'paypal',
-            'display' => 'Paypal'
+            'display' => [
+                'en' => 'Paypal'
+            ]
         ], 
         [
             'key' => 'bank_wire', 
-            'display' => 'Bank Wire'
+            'display' => [
+                'en' => 'Bank Wire'
+            ]
         ]
     ];
 

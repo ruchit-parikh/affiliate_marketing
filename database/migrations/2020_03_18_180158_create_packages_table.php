@@ -1,5 +1,6 @@
 <?php
 
+use App\Package;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,8 +19,8 @@ class CreatePackagesTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->float('amount');
-            $table->integer('allowed_children')->default(1);
-            $table->tinyInteger('status')->default(1)->comment('Inactive: 0, Active: 1');
+            $table->integer('allowed_children')->default(Package::$allowed_default_children);
+            $table->tinyInteger('status')->default(Package::$status['active']['code'])->comment('Inactive: 0, Active: 1');
             $table->timestamps();
             $table->softDeletes();
         });

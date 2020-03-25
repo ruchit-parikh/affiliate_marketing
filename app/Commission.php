@@ -14,4 +14,22 @@ class Commission extends Model
     protected $guarded = [
         'id',
     ];
+
+    /**
+     * Staus that are allowed for users 
+     */
+    public static $status = [
+        'active' => [
+            'code' => 1,
+            'display' => [
+                'en' => 'Active',
+            ],
+        ], 
+        'inactive' => [
+            'code' => 0,
+            'display' => [
+                'en' => 'Inactive',
+            ],
+        ], 
+    ];
 }

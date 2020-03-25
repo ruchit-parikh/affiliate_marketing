@@ -9,9 +9,13 @@
  */
 return [
     'admin' => [
-        'name' => 'Admin'
+        'name' => [
+            'en' => 'Admin'
+        ]
     ], 
     'customer' => [
-        'name' => 'Customer'
+        'name' => [
+            'en' => 'Customer'
+        ]
     ]
 ];

@@ -1,5 +1,6 @@
 <?php
 
+use App\Commission;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,7 +21,7 @@ class CreateCommissionsTable extends Migration
             $table->unsignedBigInteger('package_id');
             $table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade');
             $table->string('level');
-            $table->tinyInteger('status')->default(1)->comment('0: Inactive, 1: Active');
+            $table->tinyInteger('status')->default(Commission::$status['active']['code'])->comment('0: Inactive, 1: Active');
             $table->timestamps();
             $table->softDeletes();
         });
