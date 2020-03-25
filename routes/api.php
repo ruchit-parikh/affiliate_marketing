@@ -19,14 +19,14 @@ Route::group([
     'prefix' => 'v1', 
     'as' => 'v1.'
 ], function() {
-    Route::post('/login', 'AuthController@login');
-    Route::post('/register', 'AuthController@register');
-    Route::post('/send-reset-link', 'AuthController@sendResetPasswordLink');
+    Route::post('/login', 'AuthController@login')->name('login');
+    Route::post('/register', 'AuthController@register')->name('register');
+    Route::post('/send-reset-link', 'AuthController@sendResetPasswordLink')->name('send_password_link');
     Route::post('/reset-password', 'AuthController@resetPassword')->name('reset_password');
 
     Route::group([
         'middleware' => 'auth'
     ], function() {
-        Route::post('/logout', 'AuthController@logout');
+        Route::post('/logout', 'AuthController@logout')->name('logout');
     });
 });
