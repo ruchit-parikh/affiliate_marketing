@@ -26,4 +26,19 @@ class Package extends Model
             ],
         ], 
     ];
+
+    public function commissionTypes()
+    {
+        return $this->hasMany(Commission::class);
+    }
+
+    public static function boot ()
+    {
+        parent::boot();
+        self::deleting(function (Package $package) {
+            foreach ($package->commissionTypes as $commission_type) {
+                $commission_type->delete();
+            }
+        });
+    }
 }

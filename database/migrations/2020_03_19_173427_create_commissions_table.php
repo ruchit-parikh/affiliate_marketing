@@ -27,8 +27,8 @@ class CreateCommissionsTable extends Migration
         });
 
         Schema::create('user_commission', function(Blueprint $table) {
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->unsignedBigInteger('order_id')->nullable();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('set null');
             $table->unsignedBigInteger('commission_id')->nullable();

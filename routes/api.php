@@ -24,7 +24,7 @@ Route::group([
     Route::post('/reset-password', 'AuthController@resetPassword')->name('reset_password');
 
     Route::group([
-        'middleware' => 'auth'
+        'middleware' => ['jwt.auth', 'jwt.refresh']
     ], function() {
         Route::group([
             'namespace' => 'Admin',
