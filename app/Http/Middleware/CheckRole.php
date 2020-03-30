@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Role;
 use Closure;
-use Illuminate\Validation\UnauthorizedException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class CheckRole
 {
@@ -19,7 +19,7 @@ class CheckRole
     {
         $role_id = Role::where('slug', $role)->firstOrFail()->id;
         if (auth()->user()->role_id != $role_id) {
-            throw new UnauthorizedException('jwt-auth', 'User doesn\'t have valid role');
+            throw new UnauthorizedHttpException('jwt-auth', 'User doesn\'t have valid role');
         }
         return $next($request);
     }

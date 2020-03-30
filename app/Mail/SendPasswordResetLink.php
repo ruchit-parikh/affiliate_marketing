@@ -28,6 +28,6 @@ class SendPasswordResetLink extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.auth.send_password_reset_link', with(['token' => $this->token]));
+        return $this->markdown('emails.auth.send_password_reset_link', with(['token' => $this->token]));
     }
 }

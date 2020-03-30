@@ -19,9 +19,7 @@ function jsonResponse(
     array $headers = [], 
     $options = 0
 ) {
-    return response()->json(array_unshift(
-        $response_type, 
-        $response_messsage, 
-        $response
-    ), $status_code, $headers, $options);
+    $response['status'] = $response_type;
+    $response['message'] = $response_messsage;
+    return response()->json($response, $status_code, $headers, $options);
 }

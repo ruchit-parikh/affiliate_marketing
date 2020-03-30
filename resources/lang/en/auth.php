@@ -20,5 +20,6 @@ return [
     'loggedin' => 'You are successfully logged in.',
     'register_failed' => 'Failed to register a new user.',
     'something_went_wrong' => 'Oops! Something went wrong.',
-    'reset_password_button' => 'Reset Password'
+    'reset_password_button' => 'Reset Password',
+    'invalid_credentials' => 'Email or password field has wrong value.'
 ];
