@@ -21,5 +21,10 @@ return [
     'register_failed' => 'Failed to register a new user.',
     'something_went_wrong' => 'Oops! Something went wrong.',
     'reset_password_button' => 'Reset Password',
-    'invalid_credentials' => 'Email or password field has wrong value.'
+    'invalid_credentials' => 'Email or password field has wrong value.',
+    'token_expired' => 'Token is expired.',
+    'token_invalid' => 'Token is invalid.',
+    'token_blacklisted' => 'Token is blacklisted.',
+    'token_not_provided' => 'Token is not provided.',
+    'token_refreshed' => 'Token refreshed.'
 ];

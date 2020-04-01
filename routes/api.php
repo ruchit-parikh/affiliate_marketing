@@ -24,7 +24,7 @@ Route::group([
     Route::post('/reset-password', 'AuthController@resetPassword')->name('reset_password');
 
     Route::group([
-        'middleware' => ['jwt.auth', 'jwt.refresh']
+        'middleware' => ['jwt.auth']
     ], function() {
         Route::group([
             'namespace' => 'Admin',
@@ -33,6 +33,7 @@ Route::group([
             'as' => 'admin.'
         ], function() {
             Route::post('/dashboard', 'DashboardController@index')->name('dashboard.index');
+            Route::apiResource('/packages', 'PackageController');
         });
         Route::post('/logout', 'AuthController@logout')->name('logout');
     });

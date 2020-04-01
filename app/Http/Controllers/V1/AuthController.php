@@ -100,16 +100,20 @@ class AuthController extends Controller
             'email' => 'required|email|max:255|exists:users,email',
             'password' => 'required|min:8|max:32|confirmed', 
         ]);
-        $token_row = DB::table('password_resets')->where('email', $request->email);
+        try {
+            $token_row = DB::table('password_resets')->where('email', $request->email);
 
-        if (!empty($token_row->first()) && $token_row->first()->token == $request->token) {
-            User::where('email', $request->email)->firstOrFail()->update([
-                'password' => $request->password
-            ]);
-            $token_row->delete();
-            return jsonResponse('success', __('passwords.reset'));
-        } else {
-            return jsonResponse('error', __('passwords.token'));
+            if (!empty($token_row->first()) && $token_row->first()->token == $request->token) {
+                User::where('email', $request->email)->firstOrFail()->update([
+                    'password' => $request->password
+                ]);
+                $token_row->delete();
+                return jsonResponse('success', __('passwords.reset'));
+            } else {
+                return jsonResponse('error', __('passwords.token'));
+            }
+        } catch (\Exception $e) {
+            return jsonResponse('error', __('auth.something_went_wrong'));
         }
     }
 
