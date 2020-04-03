@@ -86,7 +86,7 @@ class AuthController extends Controller
             }
 
             Mail::to($request->email)->send(new SendPasswordResetLink($token));
-            return jsonResponse('success', __('password.sent'), [
+            return jsonResponse('success', __('passwords.sent'), [
                 'token' => $token
             ]);
         } catch (\Exception $e) {
