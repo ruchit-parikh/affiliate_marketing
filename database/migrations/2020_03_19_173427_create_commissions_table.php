@@ -35,7 +35,6 @@ class CreateCommissionsTable extends Migration
             $table->foreign('commission_id')->references('id')->on('commissions')->onDelete('set null');
             $table->float('flat_amount');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
