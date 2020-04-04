@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\V1\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PackageCollection;
 use App\Package;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,8 @@ class PackageController extends Controller
 {
     public function index()
     {
-        
+        $packages = Package::paginate(config('pagination.per_page'));
+        return new PackageCollection($packages);
     }
 
     public function store(Request $request)
@@ -33,9 +35,9 @@ class PackageController extends Controller
         $package = Package::findOrFail($id);
         try {
             $package->delete();
-            return jsonResponse('success', __('packages.destroy.success'));
+            return json_response('success', __('packages.destroy.success'));
         } catch(\Exception $e) {
-            return jsonResponse('error', __('packages.destroy.failed'));
+            return json_response('error', __('packages.destroy.failed'));
         }
     }
 }

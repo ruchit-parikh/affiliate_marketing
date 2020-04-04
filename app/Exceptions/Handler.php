@@ -58,19 +58,19 @@ class Handler extends ExceptionHandler
             if ($preException instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException || $preException instanceof \Tymon\JWTAuth\Exceptions\TokenBlacklistedException) {
                 try {
                     $new_token = JWTAuth::refresh($request->header('Authorization'));
-                    return jsonResponse('error', __('auth.token_refreshed'), [
+                    return json_response('error', __('auth.token_refreshed'), [
                         'token' => $new_token
                     ]);
                 } catch (JWTException $e) {
-                    return jsonResponse('error', __('auth.token_expired'), [], 401);
+                    return json_response('error', __('auth.token_expired'), [], 401);
                 }
             } else if ($preException instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
-                return jsonResponse('error', __('auth.token_invalid'), [], 401);
+                return json_response('error', __('auth.token_invalid'), [], 401);
             }
         }
 
         if ($exception->getMessage() === 'Token not provided') {
-            return jsonResponse('error', __('auth.token_not_provided'), [], 404);
+            return json_response('error', __('auth.token_not_provided'), [], 404);
         }
         return parent::render($request, $exception);
     }

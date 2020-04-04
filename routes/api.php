@@ -28,7 +28,7 @@ Route::group([
     ], function() {
         Route::group([
             'namespace' => 'Admin',
-            'middleware' => ['role:admin'], 
+            'middleware' => ['role:admin', 'active'], 
             'prefix' => 'admin', 
             'as' => 'admin.'
         ], function() {

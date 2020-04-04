@@ -36,7 +36,7 @@ class AuthController extends Controller
             ]));
             return $this->respondWithToken(auth()->login($user));
         } catch (\Exception $e) {
-            return jsonResponse('error', __('auth.register_failed'));
+            return json_response('error', __('auth.register_failed'));
         }
     }
 
@@ -49,11 +49,11 @@ class AuthController extends Controller
 
         try {
             if (!$token = auth()->attempt($request->only(['email', 'password']))) {
-                return jsonResponse('error', __('auth.invalid_credentials'), [], 401);
+                return json_response('error', __('auth.invalid_credentials'), [], 401);
             }
             return $this->respondWithToken($token);
         } catch(\Exception $e) {
-            return jsonResponse('error', __('auth.something_went_wrong')); 
+            return json_response('error', __('auth.something_went_wrong')); 
         }
     }
 
@@ -61,9 +61,9 @@ class AuthController extends Controller
     {
         try {
             auth()->logout();
-            return jsonResponse('success', __('auth.logout'));
+            return json_response('success', __('auth.logout'));
         } catch(\Exception $e) {
-            return jsonResponse('error', __('auth.something_went_wrong')); 
+            return json_response('error', __('auth.something_went_wrong')); 
         }
     }
 
@@ -86,11 +86,11 @@ class AuthController extends Controller
             }
 
             Mail::to($request->email)->send(new SendPasswordResetLink($token));
-            return jsonResponse('success', __('passwords.sent'), [
+            return json_response('success', __('passwords.sent'), [
                 'token' => $token
             ]);
         } catch (\Exception $e) {
-            return jsonResponse('error', __('auth.something_went_wrong'));
+            return json_response('error', __('auth.something_went_wrong'));
         }
     }
 
@@ -108,12 +108,12 @@ class AuthController extends Controller
                     'password' => $request->password
                 ]);
                 $token_row->delete();
-                return jsonResponse('success', __('passwords.reset'));
+                return json_response('success', __('passwords.reset'));
             } else {
-                return jsonResponse('error', __('passwords.token'));
+                return json_response('error', __('passwords.token'));
             }
         } catch (\Exception $e) {
-            return jsonResponse('error', __('auth.something_went_wrong'));
+            return json_response('error', __('auth.something_went_wrong'));
         }
     }
 
@@ -125,7 +125,7 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token)
     {
-        return jsonResponse('success', __('auth.loggedin'), [
+        return json_response('success', __('auth.loggedin'), [
             'access_token' => $token,
             'token_type'   => 'bearer',
             'expires_in'   => auth()->factory()->getTTL() * 60
