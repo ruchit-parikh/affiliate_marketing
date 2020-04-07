@@ -28,6 +28,11 @@ class Commission extends Model
         ], 
     ];
 
+    public function scopeActive($commissions)
+    {
+        $commissions->where('status', self::$status['active']['code']);
+    }
+
     public function package()
     {
         return $this->belongsTo(Package::class);

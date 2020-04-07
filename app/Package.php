@@ -35,6 +35,11 @@ class Package extends Model
         return $this->hasMany(Commission::class);
     }
 
+    public function scopeActive($packages)
+    {
+        $packages->where('status', self::$status['active']['code']);
+    }
+
     public static function boot ()
     {
         parent::boot();

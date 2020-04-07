@@ -35,6 +35,15 @@ Route::group([
             Route::post('/dashboard', 'DashboardController@index')->name('dashboard.index');
             Route::apiResource('/packages', 'PackageController')->except('show');
         });
+
+        Route::group([
+            'namespace' => 'Customer',
+            'middleware' => ['role:customer', 'active'], 
+            'prefix' => 'customer', 
+            'as' => 'customer.'
+        ], function() {
+            Route::get('/packages', 'PackageController@index')->name('packages.index');
+        });
         Route::post('/logout', 'AuthController@logout')->name('logout');
     });
 });
