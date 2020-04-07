@@ -29,6 +29,7 @@ class Package extends JsonResource
             'allowed_children' => $this->allowed_children,
             'status' => $this->allowed_status[$this->status],
             'created_at' => $this->created_at->translatedFormat('jS F Y'),
+            'commissions' => Commission::collection($this->whenLoaded('commissionTypes'))
         ];
     }
 }

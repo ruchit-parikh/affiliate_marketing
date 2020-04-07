@@ -25,10 +25,10 @@ class Commission extends JsonResource
             'id' => $this->id,
             'type' => $this->type,
             'percentage_amount' => $this->percentage_amount,
-            'package' => new PackageCollection($this->package),
             'level' => $this->level,
             'status' => $this->allowed_status[$this->status],
             'created_at' => $this->created_at->translatedFormat('jS F Y'),
+            'package' => Package::make($this->whenLoaded('package'))
         ];
     }
 }

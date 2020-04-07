@@ -12,7 +12,7 @@ class PackageController extends Controller
 {
     public function index()
     {
-        $packages = Package::paginate(config('pagination.per_page'));
+        $packages = Package::with('commissionTypes')->paginate(config('pagination.per_page'));
         return new PackageCollection($packages);
     }
 
