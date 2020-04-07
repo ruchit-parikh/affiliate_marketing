@@ -33,7 +33,7 @@ Route::group([
             'as' => 'admin.'
         ], function() {
             Route::post('/dashboard', 'DashboardController@index')->name('dashboard.index');
-            Route::apiResource('/packages', 'PackageController');
+            Route::apiResource('/packages', 'PackageController')->except('show');
         });
         Route::post('/logout', 'AuthController@logout')->name('logout');
     });
