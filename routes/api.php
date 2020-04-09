@@ -34,6 +34,7 @@ Route::group([
         ], function() {
             Route::post('/dashboard', 'DashboardController@index')->name('dashboard.index');
             Route::apiResource('/packages', 'PackageController')->except('show');
+            Route::apiResource('/commissions', 'CommissionController')->except('show');
         });
 
         Route::group([
