@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Commission;
+use App\Observers\CommissionObserver;
 use App\Observers\PackageObserver;
 use App\Package;
 use Carbon\Carbon;
@@ -31,6 +33,12 @@ class AppServiceProvider extends ServiceProvider
         JsonResource::withoutWrapping();
         Schema::defaultStringLength(191);
         Carbon::setLocale('LC_TIME', app()->getLocale());
+        $this->__registerObservers();
+    }
+
+    private function __registerObservers()
+    {
         Package::observe(PackageObserver::class);
+        Commission::observe(CommissionObserver::class);
     }
 }

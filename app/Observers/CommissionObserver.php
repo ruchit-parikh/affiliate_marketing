@@ -2,71 +2,71 @@
 
 namespace App\Observers;
 
+use App\Commission;
 use App\Log;
-use App\Package;
 
-class PackageObserver
+class CommissionObserver
 {
-    public function created(Package $package)
+    public function created(Commission $commission)
     {
         Log::create([
-            'slug' => 'package-created',
+            'slug' => 'commission-created',
             'logged_by' => auth()->check() ? auth()->user()->id : null,
-            'message' => __('packages.store.log', [
+            'message' => __('commissions.store.log', [
                 'user' => auth()->check() ? auth()->user()->name : __('users.types.guest'), 
-                'package_name' => $package->name
+                'commission_name' => $commission->type
             ]), 
             'payload' => null
         ]);
     }
 
-    public function updated(Package $package)
+    public function updated(Commission $commission)
     {
         Log::create([
-            'slug' => 'package-updated',
+            'slug' => 'commission-updated',
             'logged_by' => auth()->check() ? auth()->user()->id : null,
-            'message' => __('packages.update.log', [
+            'message' => __('commissions.update.log', [
                 'user' => auth()->check() ? auth()->user()->name : __('users.types.guest'), 
-                'package_name' => $package->name
+                'commission_name' => $commission->type
             ]), 
             'payload' => null
         ]);
     }
 
-    public function deleted(Package $package)
+    public function deleted(Commission $commission)
     {
         Log::create([
-            'slug' => 'package-deleted',
+            'slug' => 'commission-deleted',
             'logged_by' => auth()->check() ? auth()->user()->id : null,
-            'message' => __('packages.destroy.log', [
+            'message' => __('commissions.destroy.log', [
                 'user' => auth()->check() ? auth()->user()->name : __('users.types.guest'), 
-                'package_name' => $package->name
+                'commission_name' => $commission->type
             ]), 
             'payload' => null
         ]);
     }
 
-    public function restored(Package $package)
+    public function restored(Commission $commission)
     {
         Log::create([
-            'slug' => 'package-restored',
+            'slug' => 'commission-restored',
             'logged_by' => auth()->check() ? auth()->user()->id : null,
-            'message' => __('packages.restored.log', [
+            'message' => __('commissions.restored.log', [
                 'user' => auth()->check() ? auth()->user()->name : __('users.types.guest'), 
-                'package_name' => $package->name
+                'commission_name' => $commission->type
             ]), 
             'payload' => null
         ]);
     }
 
-    public function forceDeleted(Package $package)
+    public function forceDeleted(Commission $commission)
     {
         Log::create([
-            'slug' => 'package-delete-permanently',
+            'slug' => 'commission-delete-permanently',
             'logged_by' => auth()->check() ? auth()->user()->id : null,
-            'message' => __('packages.force_delete.log', [
+            'message' => __('commissions.force_delete.log', [
                 'user' => auth()->check() ? auth()->user()->name : __('users.types.guest'), 
-                'package_name' => $package->name
+                'commission_name' => $commission->type
             ]), 
             'payload' => null
         ]);
