@@ -40,6 +40,7 @@ class Package extends Model
         $packages->where('status', self::$status['active']['code']);
     }
 
+    //soft delete all necessary data when model is soft deleted
     public static function boot ()
     {
         parent::boot();

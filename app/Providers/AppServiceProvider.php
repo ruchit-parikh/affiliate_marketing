@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Observers\PackageObserver;
+use App\Package;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -16,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        
     }
 
     /**
@@ -29,5 +31,6 @@ class AppServiceProvider extends ServiceProvider
         JsonResource::withoutWrapping();
         Schema::defaultStringLength(191);
         Carbon::setLocale('LC_TIME', app()->getLocale());
+        Package::observe(PackageObserver::class);
     }
 }
